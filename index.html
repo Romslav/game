@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Marvel vs Ultron - Ultimate</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: linear-gradient(135deg, #1e1e2e, #2a2a3e);
+            color: white;
+            overflow: hidden; 
+            font-family: 'Arial Black', Arial, sans-serif;
+            touch-action: none;
+            user-select: none;
+        }
+        canvas { 
+            display: block; 
+            width: 100vw; 
+            height: 100vh; 
+            image-rendering: pixelated;
+        }
+        .ui-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+        .btn {
+            pointer-events: auto;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            padding: 10px 18px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+        .btn:hover, .btn:active { transform: scale(1.05); }
+
+        .market-tabs { position: fixed; top: 10px; left: 10px; z-index: 1000; }
+        .buy-btn { background: linear-gradient(45deg, #4CAF50, #81C784); color: white; margin-bottom: 6px; }
+        .sell-btn { background: linear-gradient(45deg, #FF9800, #FFB74D); color: white; margin-bottom: 6px; }
+        .auction-btn { background: linear-gradient(45deg, #9C27B0, #E91E63); color: white; }
+
+        .daily-bonus { position: fixed; top: 10px; right: 10px; z-index: 1000; text-align:right; }
+        .daily-btn { background: linear-gradient(45deg, #FF6B35, #FFA726); color: white; width: 160px; margin-bottom:6px; }
+        .streak-counter { 
+            background: rgba(0,0,0,0.9); 
+            color: #FFD700; 
+            padding: 6px 10px; 
+            border-radius: 15px; 
+            font-weight: bold; 
+            font-size: 13px;
+            display:inline-block;
+        }
+
+        .social-btns { position: fixed; top: 170px; right: 10px; z-index: 1000; display:flex; flex-direction:column; gap:8px; }
+        .challenge-btn { background: linear-gradient(45deg, #4ecdc4, #6be8d9); color: #1a1a2e; }
+        .share-btn { background: linear-gradient(45deg, #6c5ce7, #a29bfe); color: white; }
+
+        #joystick { 
+            position: fixed; bottom: 20px; left: 20px; 
+            width: 100px; height: 100px; 
+            background: rgba(255,255,255,0.15); 
+            border-radius: 50%; 
+            border: 3px solid rgba(255,255,255,0.3);
+        }
+        #fireBtn { 
+            position: fixed; bottom: 80px; right: 40px; 
+            width: 90px; height: 90px; 
+            background: linear-gradient(45deg, #ff4444, #ff6666); 
+            color: white; 
+            font-size: 18px; 
+            border-radius: 50%; 
+            border:none;
+        }
+        #abilityBtn {
+            position: fixed; bottom: 180px; right: 40px;
+            width: 80px; height: 80px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            border:none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+
+    <div class="ui-overlay">
+        <!-- РЫНОК -->
+        <div class="market-tabs">
+            <button class="btn buy-btn" id="shopTab">🛒 Магазин</button>
+            <button class="btn sell-btn" id="p2pTab">🔄 P2P</button>
+            <button class="btn auction-btn" id="auctionTab">⚡ Аукцион</button>
+        </div>
+
+        <!-- ЕЖЕДНЕВКА -->
+        <div class="daily-bonus">
+            <button id="dailyBtn" class="btn daily-btn">📅 Бонус</button><br>
+            <span id="streakCounter" class="streak-counter">Стreak: 0 🔥</span>
+        </div>
+
+        <!-- СОЦИАЛКА -->
+        <div class="social-btns">
+            <button id="challengeBtn" class="btn challenge-btn">⚔️ Дуэль</button>
+            <button id="shareBtn" class="btn share-btn">📤 Поделиться</button>
+        </div>
+
+        <!-- КОНТРОЛЫ -->
+        <div id="joystick"></div>
+        <button id="fireBtn">🚀</button>
+        <button id="abilityBtn">⚡</button>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
